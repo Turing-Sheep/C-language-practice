@@ -1,0 +1,11 @@
+﻿  源.c
+E:\the code of C\practice_eight\practice_eight\源.c(95,21): warning C4018: “<”: 有符号/无符号不匹配
+E:\the code of C\practice_eight\practice_eight\源.c(104,15): warning C4090: “return”: 不同的“const”限定符
+E:\the code of C\practice_eight\practice_eight\源.c(92,1): warning C4090: “初始化”: 不同的“const”限定符
+E:\the code of C\practice_eight\practice_eight\源.c(93,1): warning C4090: “初始化”: 不同的“const”限定符
+  正在生成代码
+  2 of 5 functions (40.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  已完成代码的生成
+  practice_eight.vcxproj -> E:\the code of C\practice_eight\Release\practice_eight.exe
