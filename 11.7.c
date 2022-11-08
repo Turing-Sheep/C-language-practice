@@ -1,80 +1,106 @@
 #include<stdio.h>
 #include<string.h>
-char word[15];
-char str[1000005];
-
-char* my_gets(char* line)
-{
-    int c;
-    int len = 0;
-    while((c=getchar())!=EOF)
-    {
-        line[len++] = c;
-        if(c=='\n')
+ int p1, p2, p3;
+ char str[105];
+ char res[4000];
+ int main()
+ {
+     scanf("%d %d %d", &p1, &p2, &p3);
+     scanf("%s", str);
+     int len = strlen(str);
+     int pos = 0;
+     int j = 0;
+     while (pos != len)
+     {
+        if(str[pos]!='-')
         {
-            break;
+            res[j++] = str[pos++];
         }
-    }
-    line[len] = '\0';
-    return line;
-}
-int main()
-{
-    scanf("%s",word);
-    getchar();
-    my_gets(str);
-   
-    int lenw = strlen(word);
-    int lens = strlen(str);
-    for (int i = 0; i < lenw;i++)
-    {
-        if(word[i]<='z'&&word[i]>='a')
+        else if(str[pos]=='-'&&pos==0)
         {
-            word[i] = word[i] - 'a' + 'A';
+            res[j++] = str[pos++];
         }
-    }
-    for (int i = 0; i < lens;i++)
-    {
-        if(str[i]<='z'&&str[i]>='a')
+        else if(str[pos]=='-'&&pos==len-1)
         {
-            str[i] = str[i] - 'a' + 'A';
+            res[j++] = str[pos++];
         }
-    }
-
-    int count = 0;
-    int num = 0;
-    int pos = 1000005;
-    for (int i = 0; i < lens-lenw+1;i++)
-    {
-        if(str[i]==word[0])
+        else 
         {
-            
-            for (int j = i; j < lenw+i;j++)
-            {
-                if(str[j]==word[j-i])
+             char prev = str[pos - 1];
+             char next = str[pos + 1];
+             if (next - prev <= 0)
+             {
+                 res[j++] = str[pos++];
+             }
+             else if (next - prev == 1)
+             {
+                 res[j++] = str[++pos];
+                 pos++;
+             }
+             else if((((prev<='z'&&prev>='a')||(prev<='Z'&&prev>='A'))&&((next<='Z'&&next>='A')||
+             (next<='z'&&next>='a')))||((prev>='0'&&prev<='9')&&(next>='0'&&next<='9')))
+             {
+                if(p1==1)
                 {
-                    count++;
+                    int gap = next - prev;
+                    for (int i = 1; i < gap;i++)
+                    {
+                        for (int k = 0; k < p2;k++)
+                            res[j++] = prev + i;
+                    }
+                    if(p3==2)
+                    {
+                        int q = pos;
+                        int p = pos + p2 * (gap - 1);
+                        while(q<=p)
+                        {
+                            char temp = res[q];
+                            res[q] = res[p];
+                            res[p] = temp;
+                            q++, p--;
+                        }
+                    }
+                    pos++;
+                }
+                else if(p1==2)
+                {
+                    int gap = next - prev;
+                    for (int i = 1; i < gap;i++)
+                    {
+                        for (int k = 0; k < p2;k++)
+                            res[j++] = prev - 'a' + 'A' + i;
+                    }
+                    if(p3==2)
+                    {
+                        int q = pos;
+                        int p = pos + p2 * (gap - 1)-1;
+                        while(q<p)
+                        {
+                            char temp = res[q];
+                            res[q] = res[p];
+                            res[p] = temp;
+                            q++, p--;
+                        }
+                    }
+                    pos++;
+                }
+                else if(p1==3)
+                {
+                    int gap = next - prev;
+                    for (int i = 1; i < gap;i++)
+                    {
+                        for (int k = 0; k < p2;k++)
+                            res[j++] = '*';
+                    }
+                    pos++;
                 }
             }
-            if(count==lenw)
+            else
             {
-                if ((((i-1>0&&str[i-1]==' ')||i==0)&&((lenw + i < lens - 1 && str[lenw+i]==' ')||(lenw+i==lens-1))))
-                {
-                    if (i < pos)
-                    pos = i;
-                    num++;
-                }
-
-             count = 0;
+                res[j++] = str[pos++];
+            }
         }
-    }
-    if(num)
-    {
-        printf("%d %d",num,pos);
-    }
-    else
-    {
-        printf("-1");
-    }
-    return 0;
+     }
+     printf("%s",res);
+     return 0;
 }
